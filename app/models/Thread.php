@@ -7,4 +7,7 @@ class Thread extends Eloquent{
 		return $this -> hasMany('Comment');
 	}
 	
+	public function vote(){
+		return $this -> hasMany('Vote');
+	}
 }

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('body')
 	<div id = "thread">
-		{{$thread->judul}}
+		<h1>{{$thread->judul}}</h1>
 		
 		<hr>
 		{{$thread->isi}}

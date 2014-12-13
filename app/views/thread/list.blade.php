@@ -4,9 +4,11 @@
 @foreach($threads as $thread)
     <article class="post">
         <header class="post-header">
-            <h1 class = "upvotes">
+            <h1 class = "upvotes" id = "upvotes-{{$thread->id}}">
                 {{$thread->vote}}
             </h1>
+            <button onclick = "vote({{$thread->id}},1)"> upvote </button> 
+            <button onclick = "vote({{$thread->id}},-1)"> downvote </button>
             <h1 class="post-title">
                 {{link_to_route('thread.show',$thread->judul,$thread->id)}}
             </h1>

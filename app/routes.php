@@ -21,11 +21,23 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('logout',['as' => 'logout', 'uses' => 'HomeController@doLogout']);
 
 	Route::get('/thread/new',['as' => 'thread.new','uses' => function(){
-		return View::make("newthread");
+		return View::make("thread.new");
 	}]);
 	Route::post('/thread/new',['as' => 'thread.submit','uses' => 'ThreadController@newThread']);
 	
+	Route::post('vote',function(){
 
+		$data = Input::all();
+		$vote = new Vote;
+		$vote->user_id = Auth::user()->id;
+		$vote->thread_id = $data['id'];
+		$vote->type = $data['type'];
+		$vote->save();
+		$thread = Thread::whereId($data['id'])->get()[0];
+		$thread->vote += $data['type'];
+		$thread->save();
+		return $thread->vote;
+	});
 	Route::post('/thread/comment',['as' => 'comment.submit','uses' => 'ThreadController@newComment']);
 
 });

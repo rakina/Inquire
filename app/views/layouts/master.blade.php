@@ -4,6 +4,7 @@
 	<meta charset = "UTF-8">
 	<title></title>
 	@section('head')
+
 		{{--<style>
 			@import url(//fonts.googleapis.com/css?family=Lato:700);
 
@@ -33,7 +34,27 @@
 				margin: 16px 0 0 0;
 			}
 		</style>--}}
-		<link rel = "stylesheet" href = "style.css"/>
+		<link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+		<link rel = "stylesheet" href = "{{asset('css/style.css')}}"/>
+		<script src="{{asset('js/jquery.min.js')}}"></script>
+		<script>
+		function vote(id,type){
+			@if (Auth::user())
+			@else
+				return;
+			@endif
+			if (type > 0) type = 1;
+			else type = -1;
+			$.ajax({
+	            type: 'POST',
+	            url: 'vote',
+	            data: { id: id, type:type }
+	        }).done(function(msg){
+	        	
+	           $("#upvotes-"+id).html(msg);
+	        });
+		}
+	</script>
 	@show
 </head>
 <body>
