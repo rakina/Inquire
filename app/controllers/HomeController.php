@@ -55,7 +55,7 @@ class HomeController extends BaseController {
 				// return Redirect::to('secure');
 				// for now we'll just echo success (even though echoing in a controller is bad)
 				echo Auth::user()->username;
-				return Redirect::route('home')->with('flash_notice', 'You are successfully logged in.');
+				return Redirect::route('home')->with('flash_notice', 'You have successfully logged in.');
 
 			} else {	 	
 
@@ -69,6 +69,6 @@ class HomeController extends BaseController {
 
 	public function doLogout(){
 		Auth::logout();
-		return Redirect::to('home')->with('flash_notice', 'You are successfully logged out.');
+		return Redirect::to('home')->with('flash_notice', 'You have successfully logged out.');
 	}
 }	

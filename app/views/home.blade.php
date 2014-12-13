@@ -1,8 +1,14 @@
 @extends('layouts.master')
 
 @section('body')
-	{{link_to_route('thread.new',"New thread")}}
-	<div class="welcome">
-		 {{$content}}
+	<div class = "row">
+		<div id = "threads-list" class = "col-md-10">
+			
+			 {{$content}}
+			
+		</div>
+		<div id = "sidebar" class = "col-md-2">
+			{{HTML::link('thread/new',"New thread",['class' => 'btn btn-danger '])}}
+		</div>
 	</div>
 @stop

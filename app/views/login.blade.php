@@ -5,12 +5,13 @@
 		<h1>Login</h1>
 
 		<!-- if there are login errors, show them here -->
-		<p>
-			{{ $errors->first('username') }}
-			{{ $errors->first('password') }}
-			{{ $errors->first('gabisa') }}
-		</p>
-
+		@if($errors->has())
+			<div class="alert alert-danger" role="alert">
+				{{ $errors->first('username') }}
+				{{ $errors->first('password') }}
+				{{ $errors->first('gabisa') }}
+			</div>
+		@endif
 		<p>
 			{{ Form::label('username', 'Username') }}
 			{{ Form::text('username', Input::old('username')) }}

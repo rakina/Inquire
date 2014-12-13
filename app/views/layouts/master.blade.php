@@ -5,38 +5,11 @@
 	<title></title>
 	@section('head')
 
-		{{--<style>
-			@import url(//fonts.googleapis.com/css?family=Lato:700);
-
-			body {
-				margin:0;
-				font-family:'Lato', sans-serif;
-				text-align:center;
-				color: #999;
-			}
-
-			.welcome {
-				width: 300px;
-				height: 200px;
-				position: absolute;
-				left: 50%;
-				top: 50%;
-				margin-left: -150px;
-				margin-top: -100px;
-			}
-
-			a, a:visited {
-				text-decoration:none;
-			}
-
-			h1 {
-				font-size: 32px;
-				margin: 16px 0 0 0;
-			}
-		</style>--}}
+		
 		<link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
 		<link rel = "stylesheet" href = "{{asset('css/style.css')}}"/>
 		<script src="{{asset('js/jquery.min.js')}}"></script>
+		<script src="{{asset('js/bootstrap.min.js')}}"></script>
 		<script>
 		function vote(id,type){
 			@if (Auth::user())
@@ -45,9 +18,10 @@
 			@endif
 			if (type > 0) type = 1;
 			else type = -1;
+			
 			$.ajax({
 	            type: 'POST',
-	            url: 'vote',
+	            url: '{{URL::to("vote")}}',
 	            data: { id: id, type:type }
 	        }).done(function(msg){
 	        	
@@ -58,12 +32,40 @@
 	@show
 </head>
 <body>
-	<ul>
-		<li> {{ link_to_route('home',"Home")}} </li>
-		<li>{{ "Hello ".(Auth::user()?(Auth::user()->username):"Guest")}} </li>
-		<li> {{ link_to_route((Auth::user()?'logout':"login"),Auth::user()?'logout':"login")}} </li>
+	<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{URL::to('home')}}">Inquire</a>
+    </div>
+
+   
+     
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ "Hello, ".(Auth::user()?(Auth::user()->username):"Guest")}} <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+				
+            <li class="divider"></li>
+           <li> {{ link_to_route((Auth::user()?'logout':"login"),Auth::user()?'Logout':"Login")}} </li>
 		
-	</ul>
+  
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+	@if(Session::get('flash_notice'))
+
+		<div class="alert alert-success" role="alert">{{Session::get('flash_notice')}}</div>
+	@endif
     @yield('body')
 </body>
 </html>
