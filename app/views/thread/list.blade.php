@@ -10,9 +10,14 @@
             <h1 class="post-title">
                 {{link_to_route('thread.show',$thread->judul,$thread->id)}}
             </h1>
-            <div class="clearfix">
+            <div class="clearfix poster-list">
                 Posted on <span class="left date">{{explode(' ',$thread->created_at)[0]}}</span>
-                by {{ User::whereId($thread->user_id)->get()[0]->username }}
+                by <a class = "username"> @if ($thread->user_id == 0)
+                    Anonymous
+                @else
+                {{ User::whereId($thread->user_id)->get()[0]->username }}
+                @endif
+                </a>
             </div>
         </header>
         

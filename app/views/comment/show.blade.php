@@ -6,7 +6,13 @@
         <header class="post-header">
             {{$comment->isi}}
             <div class="clearfix">
-                <span class="left date">{{explode(' ',$comment->created_at)[0]}}</span>
+                 Posted on <span class="left date">{{explode(' ',$comment->created_at)[0]}}</span>
+                by <a class = "username"> @if ($comment->user_id == 0)
+                    Anonymous
+                @else
+                {{ User::whereId($comment->user_id)->get()[0]->username }}
+                @endif
+                </a>
             </div>
         </header>
         

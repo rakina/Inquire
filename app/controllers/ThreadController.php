@@ -10,7 +10,7 @@ class ThreadController extends Controller {
 	public function showThread(Thread $thread)
     {
         $comments = $thread->comments()->get();
-        return View::make('showthread')->nest('commentscontent', 'showcomments', compact('comments'))->with('thread',$thread);
+        return View::make('thread.show')->nest('commentscontent', 'comment.show', compact('comments'))->with('thread',$thread);
         //$this->layout->title = $thread->title;
         //$this->layout->main = View::make('home')->nest('content', 'posts.single', compact('post', 'comments'));
     }
@@ -20,7 +20,6 @@ class ThreadController extends Controller {
     	$data = Input::all();
     	$rules = array('title'=>'required','content'=>'required');
     	$validator = Validator::make($data, $rules);
-
     	if ($validator->fails()) {
 			return Redirect::route('thread.new')
 				->withErrors($validator) // send back all errors to the login form
@@ -55,9 +54,35 @@ class ThreadController extends Controller {
 		$thread = new Thread;
 		$thread->judul = $data['title'];
 		$thread->isi = $data['content'];
-		$thread->user_id = Auth::user()->id;
+		if (isset($data['anonymity']) && $data['anonymity'] == 'on')
+			$thread->user_id = 0;
+		else
+			$thread->user_id = Auth::user()->id;
+
 		if (Input::hasFile('file')) $thread->file_url = $destinationPath."/".$filename;
 		$thread->save();
-		return Redirect::to("/thread/".$thread->id);
+		return Redirect::route("thread.show",$thread->id);
+    }
+
+    public  function newComment(){
+    	$data = Input::all();
+    	$threadId = $data['thread'];
+    	$data = Input::all();
+    	$rules = array('content'=>'required');
+    	$validator = Validator::make($data, $rules);
+    	if ($validator->fails()) {
+			return Redirect::route('thread.new')
+				->withErrors($validator) // send back all errors to the login form
+				->withInput($data); // send back the input (not the password) so that we can repopulate the form
+		}
+    	$comment = new Comment;
+    	$comment->thread_id = $threadId;
+    	$comment->isi = $data['content'];
+    	if (isset($data['anonymity']) && $data['anonymity'] == 'on')
+			$comment->user_id = 0;
+		else
+			$comment->user_id = Auth::user()->id;
+    	$comment->save();
+    	return Redirect::route("thread.show",$threadId);
     }
 }

@@ -26,6 +26,12 @@
 	    </div>
 	</div>
 	<div class="row">
+	    <div class="small-7 large-7 column">
+	        {{ Form::label('anonymity','Post anonymously:') }}
+	        {{ Form::checkbox('anonymity',Input::old('anonymity')) }}
+	    </div>
+	</div>
+	<div class="row">
 	    <div class="small-5 large-5 column">
 	        {{ Form::label('file','File',array('id'=>'','class'=>'')) }}
   			{{ Form::file('file','',array('id'=>'','class'=>'')) }}

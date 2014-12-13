@@ -19,14 +19,16 @@ Route::model('thread','Thread');
 Route::group(array('before' => 'auth'), function()
 {
 	Route::get('logout',['as' => 'logout', 'uses' => 'HomeController@doLogout']);
-		
+
 	Route::get('/thread/new',['as' => 'thread.new','uses' => function(){
 		return View::make("newthread");
 	}]);
 	Route::post('/thread/new',['as' => 'thread.submit','uses' => 'ThreadController@newThread']);
+	
+
+	Route::post('/thread/comment',['as' => 'comment.submit','uses' => 'ThreadController@newComment']);
+
 });
-
-
 
 
 Route::get('/thread/{thread}',['as' => 'thread.show','uses' => 'ThreadController@showThread']);
