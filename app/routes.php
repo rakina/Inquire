@@ -12,29 +12,36 @@
 */
 Route::model('thread','Thread');
 
-Route::get('/thread/{thread}',['as' => 'thread.show','uses' => 'ThreadController@showThread']);
-
-Route::get('/', function()
-{
-	return View::make('hello');
-});
-Route::get('/kya', function()
-{
-	return View::make('kya');
-});
 
 
-Route::get('/login', function()
-{
-	return View::make('login');
-});
-
-Route::post('/login',  'HomeController@doLogin');
-Route::get('home', 'HomeController@showHome');
 
 // Secure-Routes
 Route::group(array('before' => 'auth'), function()
 {
-	Route::get('logout', 'HomeController@doLogout');
+	Route::get('logout',['as' => 'logout', 'uses' => 'HomeController@doLogout']);
+		
+	Route::get('/thread/new',['as' => 'thread.new','uses' => function(){
+		return View::make("newthread");
+	}]);
+	Route::post('/thread/new',['as' => 'thread.submit','uses' => 'ThreadController@newThread']);
 });
 
+
+
+
+Route::get('/thread/{thread}',['as' => 'thread.show','uses' => 'ThreadController@showThread']);
+
+Route::get('/', function()
+{
+	Redirect::route("home");
+});
+
+
+
+Route::get('/login', ['as' => 'login', 'uses' =>function()
+{
+	return View::make('login');
+}]);
+
+Route::post('/login',  'HomeController@doLogin');
+Route::get('home', ['as' => 'home','uses' =>'HomeController@showHome']);

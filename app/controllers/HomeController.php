@@ -36,7 +36,7 @@ class HomeController extends BaseController {
 		$validator = Validator::make(Input::all(), $rules);
 		// if the validator fails, redirect back to the form
 		if ($validator->fails()) {
-			return Redirect::to('login')
+			return Redirect::route('login')
 				->withErrors($validator) // send back all errors to the login form
 				->withInput(Input::except('password')); // send back the input (not the password) so that we can repopulate the form
 		} else {
@@ -55,12 +55,12 @@ class HomeController extends BaseController {
 				// return Redirect::to('secure');
 				// for now we'll just echo success (even though echoing in a controller is bad)
 				echo Auth::user()->username;
-				return Redirect::to('home')->with('flash_notice', 'You are successfully logged in.');
+				return Redirect::route('home')->with('flash_notice', 'You are successfully logged in.');
 
 			} else {	 	
 
 				// validation not successful, send back to form	
-				return Redirect::to('login')->withErrors(array("gabisa" => "Username dan password tidak sesuai"));
+				return Redirect::route('login')->withErrors(array("gabisa" => "Username dan password tidak sesuai"));
 
 			}
 

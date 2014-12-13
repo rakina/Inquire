@@ -17,7 +17,9 @@ class CreateThreadsTable extends Migration {
                 $t->increments('id');
                 $t->integer('user_id');
                 $t->integer('vote')->default(0);
-                $t->string('judul');
+                $t->string('judul');      
+                $t->string('tag')->default('general');
+                $t->string('file_url')->nullable()->default(null);
                 $t->text('isi');
                 $t->timestamps();
         });
