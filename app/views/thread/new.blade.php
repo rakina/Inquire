@@ -7,13 +7,7 @@
 		</h2>
 		
 		
-			@if($errors->has())
-			<div class="alert alert-danger" role="alert">
-				{{ $errors->first('title') }}
-				{{ $errors->first('content') }}
-				{{ $errors->first('file') }}
-			</div>
-			@endif
+			
 		<div class = "col-md-9 col-md-offset-1">
 			{{ Form::open(['route'=>['thread.submit'],'files'=>true ]) }}
 
@@ -42,12 +36,13 @@
 			  
 			</div>
 			@if($errors->has())
+			<div data-alert class="alert alert-danger">
 			@foreach($errors->all() as $error)
-			<div data-alert class="alert-box warning round">
-			    {{$error}}
-			    <a href="#" class="close">&times;</a>
-			</div>
+			
+			    {{$error}}<br>
+			
 			@endforeach
+			</div>
 			@endif
 			{{ Form::submit('Submit',['class'=>'btn btn-default']) }}
 			{{ Form::close() }}

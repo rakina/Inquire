@@ -71,7 +71,7 @@ class ThreadController extends Controller {
     	$rules = array('content'=>'required');
     	$validator = Validator::make($data, $rules);
     	if ($validator->fails()) {
-			return Redirect::route('thread.new')
+			return Redirect::route('thread.show',$threadId)
 				->withErrors($validator) // send back all errors to the login form
 				->withInput($data); // send back the input (not the password) so that we can repopulate the form
 		}
@@ -84,5 +84,27 @@ class ThreadController extends Controller {
 			$comment->user_id = Auth::user()->id;
     	$comment->save();
     	return Redirect::route("thread.show",$threadId);
+    }
+
+    public function voteThread(){
+
+		$data = Input::all();
+
+		$thread = Thread::whereId($data['id'])->get()[0];
+		$thread->vote += $data['type'];
+		$thread->vote -= $data['current'];
+		
+		if (count($thread->votes()->whereUserId(Auth::user()->id)->get())  > 0){
+			$vote = $thread->votes()->whereUserId(Auth::user()->id)->get()[0];
+		}
+		else{
+			$vote = new Vote;
+		}
+		$vote->user_id = Auth::user()->id;
+		$vote->thread_id = $data['id'];
+		$vote->type = $data['type'];
+		$vote->save();
+		$thread->save();	
+		return $thread->vote;
     }
 }

@@ -32,10 +32,24 @@ html, body{
 }
 .upvotes{
 	margin: 5px;
+	display: none;
+}
+
+.current{
+	display: block;
 }
 
 .label{
 	font-size: 10pt;
 	text-transform: uppercase;
 	display: inline-block;
+}
+
+.voteBtn{
+	background: transparent;
+	border: none;
+}
+
+.voted{
+	color: red;
 }

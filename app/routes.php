@@ -25,19 +25,7 @@ Route::group(array('before' => 'auth'), function()
 	}]);
 	Route::post('/thread/new',['as' => 'thread.submit','uses' => 'ThreadController@newThread']);
 	
-	Route::post('vote',function(){
-
-		$data = Input::all();
-		$vote = new Vote;
-		$vote->user_id = Auth::user()->id;
-		$vote->thread_id = $data['id'];
-		$vote->type = $data['type'];
-		$vote->save();
-		$thread = Thread::whereId($data['id'])->get()[0];
-		$thread->vote += $data['type'];
-		$thread->save();
-		return $thread->vote;
-	});
+	Route::post('vote',['as'=>'thread.vote','uses'=>'ThreadController@voteThread']);
 	Route::post('/thread/comment',['as' => 'comment.submit','uses' => 'ThreadController@newComment']);
 
 });
@@ -54,6 +42,7 @@ Route::get('/', function()
 
 Route::get('/login', ['as' => 'login', 'uses' =>function()
 {
+	if (Auth::user()) return Redirect::route("home");
 	return View::make('login');
 }]);
 

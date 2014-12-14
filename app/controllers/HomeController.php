@@ -23,7 +23,7 @@ class HomeController extends BaseController {
 
 	public function showHome()
 	{
-		$threads = Thread::orderBy('id','desc')->paginate(10);
+		$threads = Thread::orderBy('vote','desc')->paginate(10);
         return  View::make('home')->nest('content','thread.list',compact('threads'));
 		//View::make('home');
 	}
