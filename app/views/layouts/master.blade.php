@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset = "UTF-8">
-	<title></title>
+	<title>Inquire</title>
 	@section('head')
 
 		
@@ -13,30 +13,59 @@
 		@if (Auth::user())
 			<script>
 				function vote(id,type,currentVote){
-	
 					if (type > 0) type = 1;
 					else type = -1;
 					if (type == currentVote) return;
-					$("#upvotes-"+id).removeClass("current");
-					$("#novotes-"+id).removeClass("current");
-					$("#downvotes-"+id).removeClass("current");
-					$("#upBtn-"+id).removeClass("voted");
-					$("#downBtn-"+id).removeClass("voted");
-					if (type == 1){
-						$("#upvotes-"+id).addClass("current");
-						$("#upBtn-"+id).addClass("voted");
-					}
-					else{
-						$("#downvotes-"+id).addClass("current");
-						$("#downBtn-"+id).addClass("voted");
-					}
-						$.ajax({
+					$.ajax({
 					        type: 'POST',
 					        url: '{{URL::to("vote")}}',
 					        data: { id: id, type:type, current:currentVote}
 					    }).done(function(msg){
 						    alert(msg);
-
+						    $("#upvotes-"+id).removeClass("current");
+							$("#novotes-"+id).removeClass("current");
+							$("#downvotes-"+id).removeClass("current");
+							$("#upBtn-"+id).removeClass("voted");
+							$("#downBtn-"+id).removeClass("voted");
+							if (type == 1){
+								$("#upvotes-"+id).addClass("current");
+								$("#upBtn-"+id).addClass("voted");
+							}
+							else{
+								$("#downvotes-"+id).addClass("current");
+								$("#downBtn-"+id).addClass("voted");
+							}
+							$("#upBtn-"+id).attr("onclick","vote("+id+",1,"+type+")");
+							$("#downBtn-"+id).attr("onclick","vote("+id+",-1,"+type+")");
+						});
+				}
+				function voteComment(id,type,currentVote){
+					
+					if (type > 0) type = 1;
+					else type = -1;
+					if (type == currentVote) return;
+					alert("yoi2");
+					$.ajax({
+					        type: 'POST',
+					        url: '{{URL::to("voteComment")}}',
+					        data: { id: id, type:type, current:currentVote}
+					    }).done(function(msg){
+						    alert(msg);
+						    $("#c-upvotes-"+id).removeClass("current");
+							$("#c-novotes-"+id).removeClass("current");
+							$("#c-downvotes-"+id).removeClass("current");
+							$("#c-upBtn-"+id).removeClass("voted");
+							$("#c-downBtn-"+id).removeClass("voted");
+							if (type == 1){
+								$("#c-upvotes-"+id).addClass("current");
+								$("#c-upBtn-"+id).addClass("voted");
+							}
+							else{
+								$("#c-downvotes-"+id).addClass("current");
+								$("#c-downBtn-"+id).addClass("voted");
+							}
+							$("#c-upBtn-"+id).attr("onclick","voteComment("+id+",1,"+type+")");
+							$("#c-downBtn-"+id).attr("onclick","voteComment("+id+",-1,"+type+")");
 						});
 				}
 			</script>
@@ -54,6 +83,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+
       <a class="navbar-brand" href="{{URL::to('home')}}">Inquire</a>
     </div>
 
@@ -64,7 +94,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ "Hello, ".(Auth::user()?(Auth::user()->username):"Guest")}} <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
 				
-            <li class="divider"></li>
+            
            <li> {{ link_to_route((Auth::user()?'logout':"login"),Auth::user()?'Logout':"Login")}} </li>
 		
   

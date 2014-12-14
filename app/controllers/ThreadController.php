@@ -87,7 +87,7 @@ class ThreadController extends Controller {
     }
 
     public function voteThread(){
-
+    	
 		$data = Input::all();
 
 		$thread = Thread::whereId($data['id'])->get()[0];
@@ -106,5 +106,27 @@ class ThreadController extends Controller {
 		$vote->save();
 		$thread->save();	
 		return $thread->vote;
+    }
+
+    public function voteComment(){
+
+		$data = Input::all();
+
+		$comment = Comment::whereId($data['id'])->get()[0];
+		$comment->vote += $data['type'];
+		$comment->vote -= $data['current'];
+		
+		if (count($comment->votes()->whereUserId(Auth::user()->id)->get())  > 0){
+			$vote = $comment->votes()->whereUserId(Auth::user()->id)->get()[0];
+		}
+		else{
+			$vote = new Vote;
+		}
+		$vote->user_id = Auth::user()->id;
+		$vote->comment_id = $data['id'];
+		$vote->type = $data['type'];
+		$vote->save();
+		$comment->save();	
+		return $comment->vote;
     }
 }

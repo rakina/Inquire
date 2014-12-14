@@ -2,7 +2,8 @@
 @section('body')
 	<div class = "row">
 		<h2 class="new-post col-md-11 col-md-offset-1">
-		     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Add New Thread
+		     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+		     Ask a Question
 		    {{ HTML::link('home','cancel',['class' => 'btn btn-danger ']) }}
 		</h2>
 		
@@ -13,20 +14,20 @@
 
 			<div class="form-group">
 			    
-			        {{ Form::label('title','Thread Title:') }}
+			        {{ Form::label('title','Title') }}
 			        {{ Form::text('title',Input::old('title'),array('id'=>'','class'=>'form-control')) }}
 			    
 			</div>
 			<div class="form-group">
 			    
-			        {{ Form::label('content','Content:') }}
+			        {{ Form::label('content','Content') }}
 			        {{ Form::textarea('content',Input::old('content'),['rows'=>5,'class'=>'form-control']) }}
 			    
 			</div>
 			<div class="checkbox">
 			    <label>
 			        {{ Form::checkbox('anonymity',Input::old('anonymity')) }}
-			        	Post anonymously
+			        	Ask anonymously
 			   </label>
 			</div>
 			<div class="form-group">

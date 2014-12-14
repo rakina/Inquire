@@ -7,7 +7,7 @@ class Comment extends Eloquent{
 		return $this ->belongsTo('Thread');
 	}
 	
-	public function vote(){
+	public function votes(){
 		return $this -> hasMany('Vote');
 	}
 }

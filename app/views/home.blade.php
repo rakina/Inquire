@@ -8,7 +8,7 @@
 			
 		</div>
 		<div id = "sidebar" class = "col-md-2">
-			{{HTML::link('thread/new',"New thread",['class' => 'btn btn-danger '])}}
+			{{HTML::link('thread/new',"New question",['class' => 'btn btn-danger '])}}
 		</div>
 	</div>
 @stop

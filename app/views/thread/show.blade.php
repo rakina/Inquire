@@ -8,14 +8,14 @@
 				{{Form::hidden('thread',$thread->id)}}
 				<div class="form-group">
 				    
-				        {{ Form::label('content','Add a comment:') }}
+				        {{ Form::label('content','Add an answer:') }}
 				        {{ Form::textarea('content',Input::old('content'),['rows'=>5,'class'=>'form-control']) }}
 				    
 				</div>
 				<div class="checkbox">
 				    <label>
 				        {{ Form::checkbox('anonymity',Input::old('anonymity')) }}
-				        	Post anonymously
+				        	Answer anonymously
 				   </label>
 				</div>
 				

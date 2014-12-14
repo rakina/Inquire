@@ -26,6 +26,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('/thread/new',['as' => 'thread.submit','uses' => 'ThreadController@newThread']);
 	
 	Route::post('vote',['as'=>'thread.vote','uses'=>'ThreadController@voteThread']);
+	Route::post('voteComment',['as'=>'comment.vote','uses'=>'ThreadController@voteComment']);
 	Route::post('/thread/comment',['as' => 'comment.submit','uses' => 'ThreadController@newComment']);
 
 });

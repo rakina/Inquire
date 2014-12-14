@@ -9,7 +9,7 @@ html, body{
 }
 
 
-.thread-header .kiri{
+.thread-header .kiri, .comment-header .kiri{
 	float: left;
 	text-align: center;
 	padding: 10px;
@@ -30,7 +30,7 @@ html, body{
 	display: block;
 	margin-left: 50px;
 }
-.upvotes{
+.upvotes, .c-upvotes{
 	margin: 5px;
 	display: none;
 }
@@ -45,7 +45,7 @@ html, body{
 	display: inline-block;
 }
 
-.voteBtn{
+.voteBtn, .c-voteBtn {
 	background: transparent;
 	border: none;
 }
