@@ -1,3 +1,4 @@
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 <div class="thread-header">
         <div class = "kiri"> 
             @if(Auth::user() && count($thread->votes()->whereUserId(Auth::user()->id)->get())  > 0)
@@ -6,7 +7,7 @@
                 <?php $currentVote = 0; ?>
             @endif
             <button class = "voteBtn {{($currentVote==1)?'voted':''}}" id = "upBtn-{{$thread->id}}" onclick = "vote({{$thread->id}},1,{{$currentVote}})"> 
-                <span class="glyphicon glyphicon-arrow-up" aria-hidden="true">
+                <span class="glyphicon glyphicon-chevron-up" aria-hidden="true">
             </span> </button>        
             <h3 class = "upvotes {{($currentVote == 1)?'current':''}}" id = "upvotes-{{$thread->id}}">
                     {{$thread->vote+1-$currentVote}}
@@ -17,12 +18,16 @@
             <h3 class = "upvotes {{($currentVote == -1)?'current':''}}" id = "downvotes-{{$thread->id}}">
                     {{$thread->vote-1-$currentVote}}
             </h3>
-            <button class = "voteBtn {{($currentVote==-1)?'voted':''}}" id = "downBtn-{{$thread->id}}" onclick = "vote({{$thread->id}},-1,{{$currentVote}})"> <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> </button>
+            <button class = "voteBtn {{($currentVote==-1)?'voted':''}}" id = "downBtn-{{$thread->id}}" onclick = "vote({{$thread->id}},-1,{{$currentVote}})">
+                <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> 
+            </button>
         </div>
             <div  class = "kanan">
                 <h2 class="thread-title">
-                    {{link_to_route('thread.show',$thread->judul,$thread->id)}}
-                    <span class="label label-default">{{$thread->tag}}</span>
+                    {{link_to_route('thread.show',htmlspecialchars($thread->judul),$thread->id)}}
+                    <a href = "{{URL::route('home.tag',$thread->tag)}}">
+                        <span class="label label-default">{{$thread->tag}}</span>
+                    </a>
                 </h2>  
                 <div class="clearfix poster-list">
                     
@@ -33,9 +38,11 @@
                     {{ User::whereId($thread->user_id)->get()[0]->username }}
                     @endif
                     </a>
+                    |
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://inquire.rakina.me" data-count="none">share</a>
                     @if(isset($content))
                     <div class = "thread-content">
-                        {{$content}}
+                        {{{$content}}}
                         @if($thread->file_url)
                             <div class = "attachment">
                                 <span class="glyphicon glyphicon-file" aria-hidden="true"></span> 

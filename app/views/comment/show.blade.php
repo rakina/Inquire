@@ -10,7 +10,7 @@
                 <?php $currentVote = 0; ?>
             @endif
             <button class = "c-voteBtn {{($currentVote==1)?'voted':''}}" id = "c-upBtn-{{$comment->id}}" onclick = "voteComment({{$comment->id}},1,{{$currentVote}})"> 
-                <span class="glyphicon glyphicon-arrow-up" aria-hidden="true">
+                <span class="glyphicon glyphicon-chevron-up" aria-hidden="true">
             </span> </button>        
             <h3 class = "c-upvotes {{($currentVote == 1)?'current':''}}" id = "c-upvotes-{{$comment->id}}">
                     {{$comment->vote+1-$currentVote}}
@@ -21,10 +21,12 @@
             <h3 class = "c-upvotes {{($currentVote == -1)?'current':''}}" id = "c-downvotes-{{$comment->id}}">
                     {{$comment->vote-1-$currentVote}}
             </h3>
-            <button class = "c-voteBtn {{($currentVote==-1)?'voted':''}}" id = "c-downBtn-{{$comment->id}}" onclick = "voteComment({{$comment->id}},-1,{{$currentVote}})"> <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> </button>
+            <button class = "c-voteBtn {{($currentVote==-1)?'voted':''}}" id = "c-downBtn-{{$comment->id}}" onclick = "voteComment({{$comment->id}},-1,{{$currentVote}})"> 
+                <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> 
+            </button>
         </div>
-        <header class="comment-header">
-            {{$comment->isi}}
+        <div class="kanan">
+            <div class="content">{{$comment->isi}}</div>
             <div class="clearfix">
                  Posted on <span class="left date">{{explode(' ',$comment->created_at)[0]}}</span>
                 by <a class = "username"> @if ($comment->user_id == 0)
@@ -34,11 +36,8 @@
                 @endif
                 </a>
             </div>
-        </header>
-        
-        <footer class="post-footer">
-            <hr>
-        </footer>
+        </div>
+      
     </div>
 @endforeach
 @endif

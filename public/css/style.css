@@ -1,38 +1,118 @@
+@import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz|Open+Sans|Oswald);
 html, body{
-	margin:0;
-	padding: 0 20px;
+	margin: 0;
+	padding: 0px;
+	font-family: 'Open Sans', sans-serif;
 }
 
-.thread-header{
+
+.navbar-default {
+	background-color: #f1c40f;
+	border-color: #e6b100;
+}
+.navbar-default .navbar-brand {
+	color: #1f1f1f;
+}
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+	color: #000000;
+}
+.navbar-default .navbar-text {
+	color: #1f1f1f;
+}
+.navbar-default .navbar-nav > li > a {
+	color: #1f1f1f;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+	color: #000000;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+	color: #000000;
+	background-color: #e6b100;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+	color: #000000;
+	background-color: #e6b100;
+}
+.navbar-default .navbar-toggle {
+	border-color: #e6b100;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+	background-color: #e6b100;
+}
+.navbar-default .navbar-toggle .icon-bar {
+	background-color: #1f1f1f;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+	border-color: #1f1f1f;
+}
+.navbar-default .navbar-link {
+	color: #1f1f1f;
+}
+.navbar-default .navbar-link:hover {
+	color: #000000;
+}
+
+@media (max-width: 767px) {
+	.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+		color: #1f1f1f;
+	}
+	.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+		color: #000000;
+	}
+	.navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+		color: #000000;
+		background-color: #e6b100;
+	}
+}
+
+.navbar-default .navbar-nav .open .dropdown-menu>li>a,.navbar-default .navbar-nav .open .dropdown-menu {
+   
+    box-shadow: none;
+  }
+
+.row{
+	margin: 0;
+}
+
+.thread-header, .comment-header{
 	margin: 0;
 	padding: 0;
+	margin-left: 50px;
 }
 
 
 .thread-header .kiri, .comment-header .kiri{
 	float: left;
 	text-align: center;
-	padding: 10px;
+	padding: 10px; 
 }
 
-.thread-header .kanan{
+.thread-header .kanan, .comment-header .kanan{
 	display: block;
 	padding: 10px;
-
 }
+
+.comment-header .content{
+	margin-top: 10px;
+}
+
 .thread-header h2{
 	margin-bottom: 0;
+	margin-top: 10px;
 }
 .thread-title a, .thread-title a:hover{
 	text-decoration: none;
+	font-weight: bold;
 }
-.thread-content{
+.thread-content, .comment-content{
 	display: block;
 	margin-left: 50px;
 }
 .upvotes, .c-upvotes{
-	margin: 5px;
+	margin: 2px 5px;
 	display: none;
+
 }
 
 .current{
@@ -48,8 +128,84 @@ html, body{
 .voteBtn, .c-voteBtn {
 	background: transparent;
 	border: none;
+	color: #bdc3c7;
+	margin: 0;
+	padding: 0;
 }
 
 .voted{
-	color: red;
+	color: #f39c12;
+}
+
+.username, .username:hover{
+	font-weight: bold;
+	color: #1a1a1a;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+
+.navbar{
+	border: none;
+	padding: 0px;
+	border-radius: 0;
+}
+
+.navbar-header .navbar-brand{
+	font-size: 24pt;
+	font-family: 'Yanone Kaffeesatz', sans-serif;
+}
+
+
+.thread-title a{
+	color: #2c3e50;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.label-default{
+	background-color: #e74c3c;
+	color: #f1f1f2;
+}
+
+.showpagination{
+	width: 500px;
+	text-align: center;
+	margin: 0 auto;
+	display: block;
+}
+
+.pagination  > li > a, .pagination  >  .active > span, 
+.pagination  > .disabled > span, .pagination  > .disabled > span:hover{
+	color: #2c3e50;
+	border: none;
+	background-color: #bdc3c7;
+}
+.pagination  >  .active > span{
+	color: #ecf0f1;
+	background-color: #7f8c8d;
+}
+.pagination  > li > a:hover, .pagination  >  .active > span:hover,
+.pagination  > li > a:focus, .pagination  >  .active > span:focus{
+	color: #ecf0f1;
+	border: none;
+	background-color: #95a5a6;
+}
+
+.btn-new-thread{
+	background-color: rgb(52, 73, 94);
+	border-color: rgb(52, 73, 94);
+}
+
+.btn-new-thread:hover, .btn-new-thread:focus{
+	background-color: #2c3e50;
+	border-color: #2c3e50;
+}
+.navbar-brand{
+	padding: 0;
+}
+.navbar-brand > img{
+	display: inline-block;
+	max-height: 50px;
+	width: auto;
+	margin: 0;
 }

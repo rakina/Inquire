@@ -10,6 +10,7 @@ class UserTableSeeder extends Seeder
 		User::create(array(
 			'username' => 'rakina',
 			'password' => Hash::make('hehe'),
+			'role' => 1,
 		));
 		User::create(array(
 			'username' => 'johndoe',

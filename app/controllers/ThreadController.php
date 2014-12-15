@@ -9,7 +9,7 @@ class ThreadController extends Controller {
 	 */
 	public function showThread(Thread $thread)
     {
-        $comments = $thread->comments()->get();
+        $comments = $thread->comments()->orderBy('vote','desc')->get();
         return View::make('thread.show')->nest('commentscontent', 'comment.show', compact('comments'))->with('thread',$thread);
         //$this->layout->title = $thread->title;
         //$this->layout->main = View::make('home')->nest('content', 'posts.single', compact('post', 'comments'));
@@ -53,7 +53,8 @@ class ThreadController extends Controller {
 		
 		$thread = new Thread;
 		$thread->judul = $data['title'];
-		$thread->isi = $data['content'];
+		$thread->isi = Purifier::clean($data['content']);
+		$thread->tag = $data['tag'];
 		if (isset($data['anonymity']) && $data['anonymity'] == 'on')
 			$thread->user_id = 0;
 		else
@@ -77,7 +78,7 @@ class ThreadController extends Controller {
 		}
     	$comment = new Comment;
     	$comment->thread_id = $threadId;
-    	$comment->isi = $data['content'];
+    	$comment->isi = Purifier::clean($data['content']);
     	if (isset($data['anonymity']) && $data['anonymity'] == 'on')
 			$comment->user_id = 0;
 		else
@@ -87,9 +88,16 @@ class ThreadController extends Controller {
     }
 
     public function voteThread(){
-    	
-		$data = Input::all();
 
+		$data = Input::all();
+		if ($data['current'] > 0)
+			$data['current'] = 1;
+		if ($data['current'] < 0)
+			$data['current'] = -1;
+		if ($data['type'] > 0)
+			$data['type'] = 1;
+		if ($data['type'] < 0)
+			$data['type'] = -1;
 		$thread = Thread::whereId($data['id'])->get()[0];
 		$thread->vote += $data['type'];
 		$thread->vote -= $data['current'];
@@ -111,7 +119,14 @@ class ThreadController extends Controller {
     public function voteComment(){
 
 		$data = Input::all();
-
+		if ($data['current'] > 0)
+			$data['current'] = 1;
+		if ($data['current'] < 0)
+			$data['current'] = -1;
+		if ($data['type'] > 0)
+			$data['type'] = 1;
+		if ($data['type'] < 0)
+			$data['type'] = -1;
 		$comment = Comment::whereId($data['id'])->get()[0];
 		$comment->vote += $data['type'];
 		$comment->vote -= $data['current'];

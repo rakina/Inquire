@@ -94,7 +94,7 @@ return array(
 	*/
 
 	'providers' => array(
-
+		'Mews\Purifier\PurifierServiceProvider',
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
 		'Illuminate\Auth\AuthServiceProvider',
 		'Illuminate\Cache\CacheServiceProvider',
@@ -149,7 +149,7 @@ return array(
 	*/
 
 	'aliases' => array(
-
+		'Purifier' => 'Mews\Purifier\Facades\Purifier',
 		'App'               => 'Illuminate\Support\Facades\App',
 		'Artisan'           => 'Illuminate\Support\Facades\Artisan',
 		'Auth'              => 'Illuminate\Support\Facades\Auth',

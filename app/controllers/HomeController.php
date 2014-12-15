@@ -23,11 +23,16 @@ class HomeController extends BaseController {
 
 	public function showHome()
 	{
-		$threads = Thread::orderBy('vote','desc')->paginate(10);
+		$threads = Thread::orderBy('vote','desc')->paginate(5);
         return  View::make('home')->nest('content','thread.list',compact('threads'));
 		//View::make('home');
 	}
-
+	public function showHomeTag($tag)
+	{
+		$threads = Thread::orderBy('vote','desc')->whereTag($tag)->paginate(5);
+        return  View::make('home')->nest('content','thread.list',compact('threads'));
+		//View::make('home');
+	}
 	public function doLogin()
 	{
 		
@@ -60,7 +65,7 @@ class HomeController extends BaseController {
 			} else {	 	
 
 				// validation not successful, send back to form	
-				return Redirect::route('login')->withErrors(array("gabisa" => "Username dan password tidak sesuai"));
+				return Redirect::route('login')->withErrors(array("gabisa" => "Wrong username or password."));
 
 			}
 

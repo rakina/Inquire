@@ -24,6 +24,17 @@
 			        {{ Form::textarea('content',Input::old('content'),['rows'=>5,'class'=>'form-control']) }}
 			    
 			</div>
+			<div class = "form-group">
+				{{ Form::label('content','Tag') }}
+				{{ Form::select('tag', array(
+				'general' => 'GENERAL',
+				'statprob' => 'STATPROB',
+				'ppw' => 'PPW',
+				'pok' => 'POK',
+				'matdas2' => 'MATDAS2',
+				'matdis2' => 'MATDIS2'
+				), 'general') }}
+			</div>
 			<div class="checkbox">
 			    <label>
 			        {{ Form::checkbox('anonymity',Input::old('anonymity')) }}

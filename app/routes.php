@@ -29,6 +29,8 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('voteComment',['as'=>'comment.vote','uses'=>'ThreadController@voteComment']);
 	Route::post('/thread/comment',['as' => 'comment.submit','uses' => 'ThreadController@newComment']);
 
+	
+
 });
 
 
@@ -49,3 +51,5 @@ Route::get('/login', ['as' => 'login', 'uses' =>function()
 
 Route::post('/login',  'HomeController@doLogin');
 Route::get('home', ['as' => 'home','uses' =>'HomeController@showHome']);
+Route::get('home/{tag}', ['as' => 'home.tag','uses' =>'HomeController@showHomeTag']);
+

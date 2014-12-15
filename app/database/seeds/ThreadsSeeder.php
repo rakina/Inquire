@@ -24,7 +24,13 @@ class ThreadsSeeder extends Seeder
 			'isi' => 'dari awal aku tak pernah tau statprob itu apa ~',
 			'tag' => 'statprob',
 		));
-
+		Thread::create(array(
+			'user_id' => 0,
+			'judul' => 'Cara pake hapsim gimana ya?',
+			'isi' => 'hapsim :(',
+			'tag' => 'pok',
+			'file_url' => 'uploads/HA71dedD/hapsim.exe',
+		));
 		Comment::create(array(
 			'user_id' => 1,
 			'thread_id' => 1,

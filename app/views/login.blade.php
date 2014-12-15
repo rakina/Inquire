@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('body')
-	
+	<div class = "row">
+		<div class = "col-md-offset-4 col-md-4">
 	{{ Form::open(array('url' => 'login')) }}
 		<h1>Login</h1>
 
@@ -12,16 +13,18 @@
 				{{ $errors->first('gabisa') }}
 			</div>
 		@endif
-		<p>
+		<div class="form-group">
 			{{ Form::label('username', 'Username') }}
-			{{ Form::text('username', Input::old('username')) }}
-		</p>
+			{{ Form::text('username', Input::old('username'),array('class'=>'form-control')) }}
+		</div>
 
-		<p>
+		<div class="form-group">
 			{{ Form::label('password', 'Password') }}
-			{{ Form::password('password') }}
-		</p>
+			{{ Form::password('password', array('class'=>'form-control')) }}
+		</div>
 
-		<p>{{ Form::submit('Submit!') }}</p>
+		{{ Form::submit('Login!',['class'=>'btn btn-default']) }}
 	{{ Form::close() }}
+	</div>
+</div>
 @stop
