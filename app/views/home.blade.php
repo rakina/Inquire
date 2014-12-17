@@ -22,7 +22,7 @@
 				    <li role="presentation"><a role="menuitem" tabindex="-1" href="{{URL::route('home.tag','matdas2')}}">matdas2</a></li>
 				  </ul>
 		        </div>
-		      
+		      <img src="http://hitwebcounter.com/counter/counter.php?page=5928841&style=0007&nbdigits=5&type=ip&initCount=0" title="Tracking hits" Alt="Tracking hits"   border="0" >
 		</div>
 	</div>
 @stop
