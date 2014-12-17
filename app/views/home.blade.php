@@ -8,7 +8,7 @@
 			
 		</div>
 		<div id = "sidebar" class = "col-md-2">
-			{{HTML::link('thread/new',"New question",['class' => 'btn btn-danger btn-new-thread'])}}
+			{{HTML::link('question/new',"New question",['class' => 'btn btn-danger btn-new-thread'])}}
 
 		        <div class="dropdown" style = "margin-top: 10px;">
 		           <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">

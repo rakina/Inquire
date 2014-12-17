@@ -21,26 +21,26 @@ Route::group(array('before' => 'auth'), function()
 {
 	Route::get('logout',['as' => 'logout', 'uses' => 'HomeController@doLogout']);
 
-	Route::get('/thread/new',['as' => 'thread.new','uses' => function(){
+	Route::get('/question/new',['as' => 'thread.new','uses' => function(){
 		return View::make("thread.new");
 	}]);
-	Route::post('/thread/new',['as' => 'thread.submit','uses' => 'ThreadController@newThread']);
+	Route::post('/question/new',['as' => 'thread.submit','uses' => 'ThreadController@newThread']);
 	
 	Route::post('vote',['as'=>'thread.vote','uses'=>'ThreadController@voteThread']);
 	Route::post('voteComment',['as'=>'comment.vote','uses'=>'ThreadController@voteComment']);
-	Route::post('/thread/comment',['as' => 'comment.submit','uses' => 'ThreadController@newComment']);
+	Route::post('/question/answer',['as' => 'comment.submit','uses' => 'ThreadController@newComment']);
 
 	
 
 });
 Route::group(array('before' => 'auth.admin'), function(){
-	Route::get('/thread/delete/{thread}',['as' => 'thread.delete', 'uses' => 'ThreadController@deleteThread']);
-	Route::get('/comment/delete/{comment}',['as' => 'comment.delete', 'uses' => 'ThreadController@deleteComment']);
+	Route::get('/question/delete/{thread}',['as' => 'thread.delete', 'uses' => 'ThreadController@deleteThread']);
+	Route::get('/answer/delete/{comment}',['as' => 'comment.delete', 'uses' => 'ThreadController@deleteComment']);
 
 });
 
 
-Route::get('/thread/{thread}',['as' => 'thread.show','uses' => 'ThreadController@showThread']);
+Route::get('/question/{thread}',['as' => 'thread.show','uses' => 'ThreadController@showThread']);
 
 Route::any('/', function()
 {

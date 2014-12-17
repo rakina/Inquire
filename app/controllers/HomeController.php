@@ -74,6 +74,6 @@ class HomeController extends BaseController {
 
 	public function doLogout(){
 		Auth::logout();
-		return Redirect::to('home')->with('flash_notice', 'You have successfully logged out.');
+		return Redirect::back()->with('flash_notice', 'You have successfully logged out.');
 	}
 }	

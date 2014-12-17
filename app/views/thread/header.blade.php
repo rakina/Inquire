@@ -39,8 +39,7 @@
                     @endif
                     </a>
                     |
-                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{URL::route('thread.show',$thread->id)}}" data-count="none"
-                        data-text = '{{$username}} asked "{{$thread->judul}}" on Inquire! Check out at ' >
+                    <a href='https://twitter.com/share?url={{URL::route("thread.show",$thread->id)}}&text={{$username}} asked "{{$thread->judul}}" on Inquire! Check out at ' target = "_blank">
                         share</a>
                     @if(Auth::user() && Auth::user()->role == 1)
                        | <a class = "delete" href = "{{URL::route('thread.delete',$thread->id)}}"> delete </a> 
