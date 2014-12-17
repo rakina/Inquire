@@ -9,7 +9,7 @@
             @else
                 <?php $currentVote = 0; ?>
             @endif
-            <button class = "c-voteBtn {{($currentVote==1)?'voted':''}}" id = "c-upBtn-{{$comment->id}}" onclick = "voteComment({{$comment->id}},1,{{$currentVote}})"> 
+            <button class = "c-voteBtn {{($currentVote==1)?'voted':''}}" id = "c-upBtn-{{$comment->id}}" onclick = "voteComment({{$comment->id}},{{$thread->id}},1,{{$currentVote}})"> 
                 <span class="glyphicon glyphicon-chevron-up" aria-hidden="true">
             </span> </button>        
             <h3 class = "c-upvotes {{($currentVote == 1)?'current':''}}" id = "c-upvotes-{{$comment->id}}">
@@ -21,7 +21,7 @@
             <h3 class = "c-upvotes {{($currentVote == -1)?'current':''}}" id = "c-downvotes-{{$comment->id}}">
                     {{$comment->vote-1-$currentVote}}
             </h3>
-            <button class = "c-voteBtn {{($currentVote==-1)?'voted':''}}" id = "c-downBtn-{{$comment->id}}" onclick = "voteComment({{$comment->id}},-1,{{$currentVote}})"> 
+            <button class = "c-voteBtn {{($currentVote==-1)?'voted':''}}" id = "c-downBtn-{{$comment->id}}" onclick = "voteComment({{$comment->id}},{{$thread->id}},-1,{{$currentVote}})"> 
                 <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> 
             </button>
         </div>
@@ -35,6 +35,9 @@
                 {{ User::whereId($comment->user_id)->get()[0]->username }}
                 @endif
                 </a>
+                @if(Auth::user() && Auth::user()->role == 1)
+                       | <a class = "delete" href = "{{URL::route('comment.delete',$comment->id)}}"> delete </a> 
+                    @endif
             </div>
         </div>
       

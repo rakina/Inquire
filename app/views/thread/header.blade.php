@@ -33,16 +33,21 @@
                     
                     Posted on <span class="left date">{{explode(' ',$thread->created_at)[0]}}</span>
                     by <a class = "username"> @if ($thread->user_id == 0)
-                        Anonymous
+                       {{ $username = 'Anonymous'; }} 
                     @else
-                    {{ User::whereId($thread->user_id)->get()[0]->username }}
+                    {{ $username = User::whereId($thread->user_id)->get()[0]->username }}
                     @endif
                     </a>
                     |
-                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://inquire.rakina.me" data-count="none">share</a>
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{URL::route('thread.show',$thread->id)}}" data-count="none"
+                        data-text = '{{$username}} asked "{{$thread->judul}}" on Inquire! Check out at ' >
+                        share</a>
+                    @if(Auth::user() && Auth::user()->role == 1)
+                       | <a class = "delete" href = "{{URL::route('thread.delete',$thread->id)}}"> delete </a> 
+                    @endif
                     @if(isset($content))
                     <div class = "thread-content">
-                        {{{$content}}}
+                        {{$content}}
                         @if($thread->file_url)
                             <div class = "attachment">
                                 <span class="glyphicon glyphicon-file" aria-hidden="true"></span> 

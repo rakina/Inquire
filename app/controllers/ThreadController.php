@@ -10,7 +10,7 @@ class ThreadController extends Controller {
 	public function showThread(Thread $thread)
     {
         $comments = $thread->comments()->orderBy('vote','desc')->get();
-        return View::make('thread.show')->nest('commentscontent', 'comment.show', compact('comments'))->with('thread',$thread);
+        return View::make('thread.show')->nest('commentscontent', 'comment.show', compact('comments','thread'))->with('thread',$thread);
         //$this->layout->title = $thread->title;
         //$this->layout->main = View::make('home')->nest('content', 'posts.single', compact('post', 'comments'));
     }
@@ -64,12 +64,19 @@ class ThreadController extends Controller {
 		$thread->save();
 		return Redirect::route("thread.show",$thread->id);
     }
-
+    public function deleteThread(Thread $thread){
+    	$comments = $thread->comments();
+    	$votes = $thread->votes();
+    	$votes->delete();
+    	$comments->delete();
+    	$thread->delete();
+    	return Redirect::route("home")->with("flash_notice","Successfully deleted thread.");
+    }
     public  function newComment(){
     	$data = Input::all();
     	$threadId = $data['thread'];
     	$data = Input::all();
-    	$rules = array('content'=>'required');
+    	$rules = array('ccontent'=>'required');
     	$validator = Validator::make($data, $rules);
     	if ($validator->fails()) {
 			return Redirect::route('thread.show',$threadId)
@@ -78,7 +85,7 @@ class ThreadController extends Controller {
 		}
     	$comment = new Comment;
     	$comment->thread_id = $threadId;
-    	$comment->isi = Purifier::clean($data['content']);
+    	$comment->isi = Purifier::clean($data['ccontent']);
     	if (isset($data['anonymity']) && $data['anonymity'] == 'on')
 			$comment->user_id = 0;
 		else
@@ -86,7 +93,12 @@ class ThreadController extends Controller {
     	$comment->save();
     	return Redirect::route("thread.show",$threadId);
     }
-
+     public function deleteComment(Comment $comment){
+    	$cvotes = $comment->votes();
+    	$cvotes->delete();
+    	$comment->delete();
+    	return Redirect::back()->with("flash_notice","Successfully deleted comment.");
+    }
     public function voteThread(){
 
 		$data = Input::all();
@@ -139,6 +151,7 @@ class ThreadController extends Controller {
 		}
 		$vote->user_id = Auth::user()->id;
 		$vote->comment_id = $data['id'];
+		$vote->thread_Id = $data['threadId'];
 		$vote->type = $data['type'];
 		$vote->save();
 		$comment->save();	

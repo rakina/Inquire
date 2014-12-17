@@ -9,8 +9,8 @@
 					{{Form::hidden('thread',$thread->id)}}
 					<div class="form-group">
 					    
-					        {{ Form::label('content','Add an answer') }}
-					        {{ Form::textarea('content',Input::old('content'),['rows'=>3,'class'=>'form-control']) }}
+					        {{ Form::label('ccontent','Add an answer') }}
+					        {{ Form::textarea('ccontent',Input::old('content'),['rows'=>3,'class'=>'form-control']) }}
 					    
 					</div>
 					<div class="checkbox">
@@ -35,6 +35,7 @@
 			<div class = "col-md-11 " id = "comments">
 				{{$commentscontent}}
 			</div>
+			
 		</div>
 
 	</div>

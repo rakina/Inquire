@@ -5,10 +5,11 @@
 	<title>Inquire</title>
 	@section('head')
 
-		
+		<link href="{{asset('favicon.ico')}}" rel="icon">
 		<link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
 		<script src="{{asset('js/jquery.min.js')}}"></script>
 		<script src="{{asset('js/bootstrap.min.js')}}"></script>
+		<script src="{{asset('ckeditor/ckeditor.js')}}"></script>
 		
 		<link rel = "stylesheet" href = "{{asset('css/style.css')}}"/>
 		@if (Auth::user())
@@ -27,8 +28,8 @@
 					$("#upBtn-"+id).removeClass("voted");
 					$("#downBtn-"+id).removeClass("voted");
 					if (type == 1){
-					$("#upvotes-"+id).addClass("current");
-					$("#upBtn-"+id).addClass("voted");
+						$("#upvotes-"+id).addClass("current");
+						$("#upBtn-"+id).addClass("voted");
 					}
 					else if (type == -1){
 						$("#downvotes-"+id).addClass("current");
@@ -44,38 +45,41 @@
 					        url: '{{URL::to("vote")}}',
 					        data: { id: id, type:type, current:currentVote}
 					    }).done(function(msg){
-						   alert("hehe");
+						   
 						    
 						});
 				}
-				function voteComment(id,type,currentVote){
+				function voteComment(id,threadId, type,currentVote){
 					
 					if (type > 0) type = 1;
 					else type = -1;
-					if (type == currentVote) return;
-					
-					 $("#c-upvotes-"+id).removeClass("current");
-							$("#c-novotes-"+id).removeClass("current");
-							$("#c-downvotes-"+id).removeClass("current");
-							$("#c-upBtn-"+id).removeClass("voted");
-							$("#c-downBtn-"+id).removeClass("voted");
-							if (type == 1){
-								$("#c-upvotes-"+id).addClass("current");
-								$("#c-upBtn-"+id).addClass("voted");
-							}
-							else{
-								$("#c-downvotes-"+id).addClass("current");
-								$("#c-downBtn-"+id).addClass("voted");
-							}
-							$("#c-upBtn-"+id).attr("onclick","voteComment("+id+",1,"+type+")");
-							$("#c-downBtn-"+id).attr("onclick","voteComment("+id+",-1,"+type+")");
+					if (currentVote > 0) currentVote = 1;
+					else if (currentVote < 0) currentVote = -1;
+					if (currentVote == type){
+						type = 0;
+					}
+					$("#c-upvotes-"+id).removeClass("current");
+					$("#c-novotes-"+id).removeClass("current");
+					$("#c-downvotes-"+id).removeClass("current");
+					$("#c-upBtn-"+id).removeClass("voted");
+					$("#c-downBtn-"+id).removeClass("voted");
+					if (type == 1){
+						$("#c-upvotes-"+id).addClass("current");
+						$("#c-upBtn-"+id).addClass("voted");
+					}
+					else if (type == -1){
+						$("#c-downvotes-"+id).addClass("current");
+						$("#c-downBtn-"+id).addClass("voted");
+					} else{
+						$("#c-novotes-"+id).addClass("current");
+					}
+					$("#c-upBtn-"+id).attr("onclick","voteComment("+id+",1,"+type+")");
+					$("#c-downBtn-"+id).attr("onclick","voteComment("+id+",-1,"+type+")");
 					$.ajax({
 					        type: 'POST',
 					        url: '{{URL::to("voteComment")}}',
-					        data: { id: id, type:type, current:currentVote}
-					    }).done(function(msg){
-						  
-						   
+					        data: { threadId: threadId, id: id, type:type, current:currentVote}
+					    }).done(function(msg){					   
 						});
 				}
 			</script>
@@ -84,7 +88,7 @@
 				function vote(a,b,c){
 					alert("You need to be logged in to vote.");
 				}
-				function voteComment(a,b,c){
+				function voteComment(a,b,c,d){
 					alert("You need to be logged in to vote.");
 				}
 			</script>
@@ -133,7 +137,8 @@
 	@if(Session::get('flash_notice'))
 	<div class = "row">
 		<div class = "col-md-offset-4 col-md-4">
-		<div class="alert alert-success" role="alert">{{Session::get('flash_notice')}}</div>
+			<div class="alert alert-success" role="alert">{{Session::get('flash_notice')}}</div>
+		</div>
 	</div>
 	@endif
     @yield('body')

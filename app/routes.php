@@ -11,6 +11,7 @@
 |
 */
 Route::model('thread','Thread');
+Route::model('comment','Comment');
 
 
 
@@ -32,13 +33,18 @@ Route::group(array('before' => 'auth'), function()
 	
 
 });
+Route::group(array('before' => 'auth.admin'), function(){
+	Route::get('/thread/delete/{thread}',['as' => 'thread.delete', 'uses' => 'ThreadController@deleteThread']);
+	Route::get('/comment/delete/{comment}',['as' => 'comment.delete', 'uses' => 'ThreadController@deleteComment']);
+
+});
 
 
 Route::get('/thread/{thread}',['as' => 'thread.show','uses' => 'ThreadController@showThread']);
 
-Route::get('/', function()
+Route::any('/', function()
 {
-	Redirect::route("home");
+	return Redirect::route("home");
 });
 
 

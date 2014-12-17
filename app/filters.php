@@ -54,6 +54,19 @@ Route::filter('auth.basic', function()
 	return Auth::basic();
 });
 
+Route::filter('auth.admin', function(){
+	if (Auth::guest() || Auth::user()->role != 1){
+		if (Request::ajax())
+		{
+			return Response::make('Unauthorized', 401);
+		}
+		else
+		{
+			return Redirect::guest('login')->with("flash_notice","You need to be admin to do that.");
+		}
+	}
+});
+
 /*
 |--------------------------------------------------------------------------
 | Guest Filter

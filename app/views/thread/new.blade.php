@@ -21,9 +21,14 @@
 			<div class="form-group">
 			    
 			        {{ Form::label('content','Content') }}
-			        {{ Form::textarea('content',Input::old('content'),['rows'=>5,'class'=>'form-control']) }}
+			        {{ Form::textarea('content',Input::old('content'),['rows'=>5,'class'=>'ckeditor form-control','id'=>'content']) }}
 			    
 			</div>
+			<script>
+                // Replace the <textarea id="editor1"> with a CKEditor
+                // instance, using default configuration.
+                CKEDITOR.replace( 'content' );
+            </script>
 			<div class = "form-group">
 				{{ Form::label('content','Tag') }}
 				{{ Form::select('tag', array(
