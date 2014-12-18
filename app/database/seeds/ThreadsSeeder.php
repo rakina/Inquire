@@ -8,16 +8,11 @@ class ThreadsSeeder extends Seeder
 		//DB::table('threads')->delete();
 		Thread::create(array(
 			'user_id' => 1,
-			'judul' => 'pertamax',
-			'isi' => 'coba coba nih',
+			'judul' => 'pertamax?',
+			'isi' => 'first question ever!',
 			'tag' => 'general',
 		));
-		Thread::create(array(
-			'user_id' => 1,
-			'judul' => 'keduax',
-			'isi' => 'coba coba lagi nih',
-			'tag' => 'ppw',
-		));
+		
 		Thread::create(array(
 			'user_id' => 2,
 			'judul' => 'confidence interval itu apa ya?',
@@ -30,6 +25,25 @@ class ThreadsSeeder extends Seeder
 			'isi' => 'hapsim :(',
 			'tag' => 'pok',
 			'file_url' => 'uploads/HA71dedD/hapsim.exe',
+		));
+		Thread::create(array(
+			'user_id' => 1,
+			'judul' => 'Laravel atau Yii?',
+			'isi' => 'galau mau pake apa :(',
+			'tag' => 'ppw'
+		));
+
+		Thread::create(array(
+			'user_id' => 1,
+			'judul' => 'Selama ini kita belajar apa sih?',
+			'isi' => '#RIPMatdas2',
+			'tag' => 'matdas2'
+		));
+
+		Comment::create(array(
+			'user_id' => 0,
+			'thread_id' => 4,
+			'isi' => 'ya laravel lah...',
 		));
 		Comment::create(array(
 			'user_id' => 1,

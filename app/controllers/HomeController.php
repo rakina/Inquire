@@ -33,6 +33,29 @@ class HomeController extends BaseController {
         return  View::make('home')->nest('content','thread.list',compact('threads'));
 		//View::make('home');
 	}
+
+	public function newUser(){
+		$rules = array('username'=>'required|alphanum','password'=>'required','password2'=>'same:password');
+		$validator = Validator::make(Input::all(), $rules);
+		// if the validator fails, redirect back to the form
+		$username = Input::get('username');
+		$password = Input::get('password');
+		if ($validator->fails()) {
+			return Redirect::to('newuser')
+				->withErrors($validator) // send back all errors to the login form
+				->withInput(['username' => $username]); // send back the input (not the password) so that we can repopulate the form
+		}
+		if ($username == 'Anonymous' || count(User::whereUsername($username)->get()) > 0){
+			return Redirect::to('newuser')
+				->withErrors(array('username' => 'User '.$username.' already exists.')); 
+		}
+		$user = new User;
+		$user->username = $username;
+		$user->password =  Hash::make($password);
+		$user->save();
+		return Redirect::to('newuser')->with('flash_notice', 'Successfully registered user '.$username);
+	}
+
 	public function doLogin()
 	{
 		

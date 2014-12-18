@@ -70,7 +70,7 @@ class ThreadController extends Controller {
     	$votes->delete();
     	$comments->delete();
     	$thread->delete();
-    	return Redirect::route("home")->with("flash_notice","Successfully deleted thread.");
+    	return Redirect::route("home")->with("flash_notice","Successfully deleted question.");
     }
     public  function newComment(){
     	$data = Input::all();
@@ -97,7 +97,7 @@ class ThreadController extends Controller {
     	$cvotes = $comment->votes();
     	$cvotes->delete();
     	$comment->delete();
-    	return Redirect::back()->with("flash_notice","Successfully deleted comment.");
+    	return Redirect::back()->with("flash_notice","Successfully deleted answer.");
     }
     public function voteThread(){
 

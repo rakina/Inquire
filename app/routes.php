@@ -36,6 +36,10 @@ Route::group(array('before' => 'auth'), function()
 Route::group(array('before' => 'auth.admin'), function(){
 	Route::get('/question/delete/{thread}',['as' => 'thread.delete', 'uses' => 'ThreadController@deleteThread']);
 	Route::get('/answer/delete/{comment}',['as' => 'comment.delete', 'uses' => 'ThreadController@deleteComment']);
+	Route::get('newuser', function(){
+		return View::make('newuser');
+	});
+	Route::post('newuser',['as' => 'user.new', 'uses' => 'HomeController@newUser']);
 
 });
 

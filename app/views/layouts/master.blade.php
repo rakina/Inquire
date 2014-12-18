@@ -96,6 +96,7 @@
 	@show
 </head>
 <body>
+	@section('nav')
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -112,7 +113,7 @@
       	Inquire
       </a>
     </div>
-    
+  
    
      
       <ul class="nav navbar-nav navbar-right">
@@ -134,6 +135,7 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+  @show
 	@if(Session::get('flash_notice'))
 	<div class = "row">
 		<div class = "col-md-offset-4 col-md-4">
